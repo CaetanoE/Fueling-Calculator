@@ -1,92 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fueling App — Hidratación Deportiva</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,600;1,300&display=swap');
-  *{box-sizing:border-box;margin:0;padding:0}
-  :root{
-    --bg:#0a0f0d;--surface:#111a16;--surface2:#172013;--border:#1e3020;
-    --accent:#4ade80;--accent2:#86efac;--warn:#fbbf24;--danger:#f87171;
-    --text:#e8f5e9;--muted:#6b8f74;--mono:'DM Mono',monospace;--serif:'Fraunces',serif;
-  }
-  @media(prefers-color-scheme:light){
-    :root{--bg:#f0f7f2;--surface:#fff;--surface2:#e8f5e9;--border:#c8e6d0;
-    --accent:#16a34a;--accent2:#22c55e;--warn:#d97706;--danger:#dc2626;
-    --text:#0a2e14;--muted:#4a7a58;}
-  }
-  body{background:var(--bg);color:var(--text);font-family:var(--mono);font-size:13px;padding:0 0 2rem;}
-  h1{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--accent);letter-spacing:-0.5px}
-  h2{font-family:var(--serif);font-size:16px;font-weight:300;font-style:italic;color:var(--muted);margin-bottom:1rem}
-  h3{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:0.75rem}
-  .header{padding:1.5rem 1.5rem 1rem;border-bottom:1px solid var(--border)}
-  .header-sub{font-size:11px;color:var(--muted);margin-top:4px;font-style:italic}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--border)}
-  .panel{padding:1.5rem;border-right:1px solid var(--border)}
-  .panel:last-child{border-right:none}
-  .field{margin-bottom:1.25rem}
-  .field label{display:block;font-size:11px;color:var(--muted);margin-bottom:6px;letter-spacing:1px;text-transform:uppercase}
-  .field input[type=number],.field select{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:4px;font-family:var(--mono);font-size:13px;outline:none;transition:border-color 0.2s}
-  .field input:focus,.field select:focus{border-color:var(--accent)}
-  .field select option{background:var(--surface)}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .toggle-row{display:flex;gap:8px;flex-wrap:wrap}
-  .toggle-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:6px 12px;border-radius:3px;cursor:pointer;font-family:var(--mono);font-size:11px;transition:all 0.15s}
-  .toggle-btn.active{background:var(--accent);border-color:var(--accent);color:#000;font-weight:500}
-  .range-wrap{display:flex;align-items:center;gap:10px}
-  .range-wrap input[type=range]{flex:1;accent-color:var(--accent)}
-  .range-val{font-size:13px;color:var(--accent);min-width:45px;text-align:right}
-  .result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin:0}
-  .metric{background:var(--surface);padding:1.25rem 1rem;text-align:center}
-  .metric-val{font-size:28px;font-weight:500;color:var(--accent);font-family:var(--serif);line-height:1}
-  .metric-unit{font-size:11px;color:var(--muted);margin-top:4px}
-  .metric-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-top:8px}
-  .recipe-box{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--accent);padding:1.25rem;margin:1rem 0;border-radius:0 4px 4px 0}
-  .recipe-title{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--accent);margin-bottom:0.75rem}
-  .recipe-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)}
-  .recipe-row:last-child{border-bottom:none}
-  .recipe-ingredient{color:var(--muted)}
-  .recipe-amount{color:var(--text);font-weight:500}
-  .timeline{padding:1.5rem;border-top:1px solid var(--border)}
-  .timeline-title{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:1rem}
-  .t-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
-  .t-time{font-size:11px;color:var(--accent);min-width:55px;padding-top:2px}
-  .t-bar{flex:1}
-  .t-label{font-size:12px;color:var(--text);margin-bottom:3px}
-  .t-sub{font-size:11px;color:var(--muted)}
-  .t-track{background:var(--border);height:4px;border-radius:2px;overflow:hidden}
-  .t-fill{height:100%;background:var(--accent);border-radius:2px;transition:width 0.6s ease}
-  .refs-section{padding:1.5rem;border-top:1px solid var(--border)}
-  .ref-item{padding:8px 0;border-bottom:1px solid var(--border);font-size:11px}
-  .ref-item:last-child{border-bottom:none}
-  .ref-badge{display:inline-block;background:var(--surface2);border:1px solid var(--border);color:var(--accent);font-size:10px;padding:2px 6px;border-radius:2px;margin-right:6px}
-  .ref-text{color:var(--muted);line-height:1.5}
-  .ref-finding{color:var(--text);margin-top:3px}
-  .warn-badge{background:rgba(251,191,36,0.1);border:1px solid var(--warn);color:var(--warn);padding:8px 12px;border-radius:4px;font-size:11px;margin-top:0.75rem;line-height:1.5}
-  .section-divider{border:none;border-top:1px solid var(--border);margin:0}
-  .calc-btn{width:100%;background:var(--accent);color:#000;border:none;padding:12px;font-family:var(--mono);font-size:13px;font-weight:500;cursor:pointer;letter-spacing:1px;transition:opacity 0.15s}
-  .calc-btn:hover{opacity:0.9}
-  .results-header{padding:1rem 1.5rem;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-  .sport-icon{font-size:20px}
-  .tab-row{display:flex;border-bottom:1px solid var(--border)}
-  .tab{padding:10px 16px;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;transition:all 0.15s;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--mono)}
-  .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-  .tab-panel{display:none;padding:1.5rem}
-  .tab-panel.active{display:block}
-  .sweat-warning{background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.3);color:var(--danger);padding:10px 12px;border-radius:4px;font-size:11px;margin-bottom:1rem;line-height:1.5}
-</style>
-
-<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden">Calculadora de hidratación deportiva basada en evidencia científica</h2>
-
-<div class="header">
-  <h1>Hidratación Deportiva</h1>
-  <div class="header-sub">Fórmula base: agua + azúcar + sal — basado en evidencia científica</div>
-</div>
-
-<div class="grid">
-  <div class="panel">
-    <h3>Atleta</h3>
-    <div class="field">
-      <label>Peso corporal (kg)</label>
-      <input type="number" id="peso" value="70" min="40" max="120" step="1">
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo"><i class="fa-solid fa-compass"></i></div>
+    <div>
+      <div class="nav-name">Caetano Eirea</div>
+      <div class="nav-sub">Fueling App</div>
     </div>
+  </div>
+  <div class="nav-badge"><i class="fa-solid fa-flask" style="margin-right:6px"></i>Ciencia aplicada al deporte</div>
+</nav>
+
+<div class="app">
+
+  <div class="sidebar">
+    <div class="sidebar-title"><i class="fa-solid fa-sliders"></i> Configuración</div>
+
+    <div class="field">
+      <label>Peso corporal</label>
+      <input type="number" id="peso" value="70" min="40" max="120" step="1" style="text-align:right">
+      <span style="position:relative;pointer-events:none"></span>
+    </div>
+    <div style="position:relative;margin-top:-46px;margin-bottom:1rem;pointer-events:none;text-align:right;padding-right:14px;font-size:11px;color:var(--text3)">kg</div>
+
     <div class="row2">
       <div class="field">
         <label>Edad</label>
@@ -100,8 +46,9 @@
         </select>
       </div>
     </div>
+
     <div class="field">
-      <label>Nivel de entrenamiento</label>
+      <label>Nivel</label>
       <select id="nivel">
         <option value="novice">Principiante (&lt;2 años)</option>
         <option value="intermediate" selected>Intermedio (2-5 años)</option>
@@ -110,19 +57,23 @@
       </select>
     </div>
 
-    <h3 style="margin-top:1rem">Prueba / Entrenamiento</h3>
+    <div class="divider"></div>
+    <div class="sidebar-title" style="margin-bottom:1rem"><i class="fa-solid fa-route"></i> Prueba</div>
+
     <div class="field">
-      <label>Tipo de deporte</label>
+      <label>Deporte</label>
       <select id="deporte">
         <option value="running">Running / Trail</option>
         <option value="cycling">Ciclismo</option>
+        <option value="triathlon">Triatlón</option>
         <option value="gym">Gimnasio / Fuerza</option>
       </select>
     </div>
+
     <div class="row2">
       <div class="field">
         <label>Duración (min)</label>
-        <input type="number" id="duracion" value="90" min="15" max="600" step="15">
+        <input type="number" id="duracion" value="120" min="15" max="600" step="15">
       </div>
       <div class="field">
         <label>Intensidad</label>
@@ -134,24 +85,27 @@
         </select>
       </div>
     </div>
-  </div>
 
-  <div class="panel" style="border-right:none">
-    <h3>Condiciones ambientales</h3>
+    <div class="divider"></div>
+    <div class="sidebar-title" style="margin-bottom:1rem"><i class="fa-solid fa-cloud-sun"></i> Entorno</div>
+
     <div class="field">
-      <label>Temperatura ambiente (°C): <span id="tempVal" style="color:var(--accent)">20°C</span></label>
-      <div class="range-wrap">
-        <input type="range" id="temp" min="5" max="45" value="20" step="1">
+      <div class="range-label">
+        <span>Temperatura</span>
+        <span class="range-val" id="tempVal">20°C</span>
       </div>
+      <input type="range" id="temp" min="5" max="45" value="20" step="1">
     </div>
-  <div class="field">
-        <label>Humedad ambiental</label>
-        <select id="humedad">
-          <option value="seco">Seco (Poca humedad)</option>
-          <option value="normal" selected>Normal</option>
-          <option value="humedo">Húmedo (Sensación bochornosa)</option>
-        </select>
-      </div>
+
+    <div class="field">
+      <label>Humedad</label>
+      <select id="humedad">
+        <option value="seco">Seco</option>
+        <option value="normal" selected>Normal</option>
+        <option value="humedo">Húmedo / Bochornoso</option>
+      </select>
+    </div>
+
     <div class="field">
       <label>Altitud</label>
       <div class="toggle-row" id="altitud">
@@ -161,15 +115,18 @@
       </div>
     </div>
 
-    <h3 style="margin-top:1rem">Estado y objetivo</h3>
+    <div class="divider"></div>
+    <div class="sidebar-title" style="margin-bottom:1rem"><i class="fa-solid fa-person-running"></i> Estado</div>
+
     <div class="field">
-          <label>Estado de hidratación previo</label>
-          <select id="hidratPrev">
-            <option value="good" selected>Bien hidratado</option>
-            <option value="mild">Leve déficit (Tengo algo de sed)</option>
-            <option value="poor">Deshidratado (Orina muy oscura)</option>
-          </select>
+      <label>Hidratación previa</label>
+      <select id="hidratPrev">
+        <option value="good" selected>Bien hidratado</option>
+        <option value="mild">Leve déficit (algo de sed)</option>
+        <option value="poor">Deshidratado (orina oscura)</option>
+      </select>
     </div>
+
     <div class="field">
       <label>Tolerancia GI</label>
       <select id="tolGI">
@@ -178,8 +135,9 @@
         <option value="low">Baja — problemas frecuentes</option>
       </select>
     </div>
+
     <div class="field">
-      <label>Objetivo principal</label>
+      <label>Objetivo</label>
       <select id="objetivo">
         <option value="perf">Rendimiento máximo</option>
         <option value="endurance" selected>Resistencia / completar</option>
@@ -188,372 +146,108 @@
       </select>
     </div>
 
-    <button class="calc-btn" onclick="calcular()">→ CALCULAR PLAN</button>
-  </div>
-</div>
-
-<hr class="section-divider">
-
-<div id="results" style="display:none">
-  <div class="results-header">
-    <div>
-      <span id="res-sport-label" style="font-size:12px;color:var(--muted)"></span>
-      <div style="font-size:13px;color:var(--text);margin-top:2px" id="res-summary-line"></div>
-    </div>
-    <div id="res-perdida" style="text-align:right">
-      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Pérdida sudor est.</div>
-      <div style="font-size:18px;color:var(--warn);font-family:var(--serif)" id="res-sweat"></div>
-    </div>
+    <button class="calc-btn" onclick="calcular()"><i class="fa-solid fa-bolt" style="margin-right:8px"></i>Calcular plan</button>
   </div>
 
-  <div class="result-grid">
-    <div class="metric">
-      <div class="metric-val" id="m-agua">—</div>
-      <div class="metric-unit">ml/hora</div>
-      <div class="metric-label">Agua total</div>
-    </div>
-    <div class="metric">
-      <div class="metric-val" id="m-carbs">—</div>
-      <div class="metric-unit">g/hora</div>
-      <div class="metric-label">CHO (azúcar)</div>
-    </div>
-    <div class="metric">
-      <div class="metric-val" id="m-sodio">—</div>
-      <div class="metric-unit">mg/hora</div>
-      <div class="metric-label">Sodio (sal)</div>
-    </div>
-  </div>
+  <div class="main" id="mainArea">
 
-  <div class="tab-row">
-    <button class="tab active" onclick="showTab('receta')">Receta</button>
-    <button class="tab" onclick="showTab('timeline')">Cronograma</button>
-    <button class="tab" onclick="showTab('refs')">Bibliografía</button>
-    <button class="tab" onclick="showTab('formulas')">Fórmulas</button>
-  </div>
+    <div class="placeholder" id="placeholder">
+      <i class="fa-solid fa-droplet"></i>
+      <div style="font-family:var(--rajdhani);font-size:20px;font-weight:700;color:var(--text2)">Tu plan aparecerá aquí</div>
+      <p>Completa los parámetros de la izquierda y pulsa <strong style="color:var(--cyan)">Calcular plan</strong> para obtener tu receta personalizada basada en evidencia científica.</p>
+    </div>
 
-  <div id="tab-receta" class="tab-panel active">
-    <div id="sweat-warn" class="sweat-warning" style="display:none"></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
-      <div>
-        <div class="recipe-box">
-          <div class="recipe-title">Bebida por 500ml</div>
+    <div id="results" style="display:none">
+
+      <div class="kpi-header">
+        <div class="kpi-meta">
+          <div>
+            <div class="kpi-label" id="res-sport-label">—</div>
+            <div class="kpi-title" id="res-summary-line">—</div>
+          </div>
+          <div class="kpi-duration">
+            <div class="kpi-duration-val" id="res-duration">—</div>
+            <div class="kpi-duration-sub">Duración total</div>
+          </div>
+        </div>
+        <div class="kpi-cards">
+          <div class="kpi-card">
+            <div class="kpi-card-val" id="m-agua">—</div>
+            <div class="kpi-card-unit">ml/h</div>
+            <div class="kpi-card-label">Hidratación</div>
+            <div class="kpi-card-sub" id="m-agua-sub">—</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-card-val" id="m-carbs">—</div>
+            <div class="kpi-card-unit">g/h</div>
+            <div class="kpi-card-label">CHO (azúcar)</div>
+            <div class="kpi-card-sub" id="m-carbs-sub">—</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-card-val" id="m-sodio">—</div>
+            <div class="kpi-card-unit">mg/h</div>
+            <div class="kpi-card-label">Sodio (sal)</div>
+            <div class="kpi-card-sub" id="m-sodio-sub">—</div>
+          </div>
+          <div class="kpi-card warn" id="kpi-sweat-card">
+            <div class="kpi-card-val" id="m-sweat">—</div>
+            <div class="kpi-card-unit">L</div>
+            <div class="kpi-card-label">Pérdida sudor</div>
+            <div class="kpi-card-sub">estimada total</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sweat-alert" id="sweat-alert"><i class="fa-solid fa-triangle-exclamation" style="margin-right:8px"></i><span id="sweat-alert-text"></span></div>
+
+      <div class="content-grid">
+
+        <div class="card">
+          <div class="card-title"><i class="fa-solid fa-flask-vial"></i> Receta por 500ml</div>
           <div id="recipe-rows"></div>
+          <div id="osmo-pill-wrap" style="margin-top:10px"></div>
+          <div class="recipe-note" id="recipe-note"></div>
+          <div class="gi-alert" id="gi-alert"></div>
         </div>
-        <div style="font-size:11px;color:var(--muted);margin-top:8px;line-height:1.6" id="recipe-note"></div>
-      </div>
-      <div>
-        <h3>Composición nutricional</h3>
-        <div style="position:relative;width:100%;height:220px;margin-bottom:8px">
-          <canvas id="macroChart" role="img" aria-label="Gráfico de composición de la bebida deportiva"></canvas>
+
+        <div class="timeline-card">
+          <div class="card-title"><i class="fa-solid fa-timeline"></i> Plan de hidratación</div>
+          <div class="timeline-scroll">
+            <div style="position:relative;padding-bottom:4px">
+              <div class="tl-line" id="tl-line"></div>
+              <div class="tl-track" id="tl-track"></div>
+            </div>
+          </div>
+          <div class="tl-legend">
+            <div class="tl-legend-item"><div class="tl-legend-dot" style="border-color:var(--success);background:rgba(0,230,118,0.15)"></div>Inicio</div>
+            <div class="tl-legend-item"><div class="tl-legend-dot" style="border-color:var(--cyan);background:rgba(0,200,255,0.12)"></div>Agua + Electrolitos</div>
+            <div class="tl-legend-item"><div class="tl-legend-dot" style="border-color:var(--blue);background:rgba(26,110,230,0.15)"></div>Bebida energética</div>
+            <div class="tl-legend-item"><div class="tl-legend-dot" style="border-color:var(--danger);background:rgba(255,95,95,0.12)"></div>Fin</div>
+          </div>
+          <div style="font-size:11px;color:var(--text3);margin-top:8px" id="tl-totals"></div>
         </div>
-        <div id="chart-legend" style="display:flex;flex-wrap:wrap;gap:12px;font-size:11px;color:var(--muted)"></div>
       </div>
+
+      <div class="extra-row">
+        <button class="extra-btn" id="btn-refs" onclick="togglePanel('refs')"><i class="fa-solid fa-book-open"></i> Bibliografía científica</button>
+        <button class="extra-btn" id="btn-formulas" onclick="togglePanel('formulas')"><i class="fa-solid fa-square-root-variable"></i> Fórmulas aplicadas</button>
+      </div>
+
+      <div class="expand-panel" id="panel-refs">
+        <div class="card-title" style="margin-bottom:1rem"><i class="fa-solid fa-microscope"></i> Evidencia científica de referencia</div>
+        <div id="refs-content"></div>
+      </div>
+
+      <div class="expand-panel" id="panel-formulas">
+        <div class="card-title" style="margin-bottom:1rem"><i class="fa-solid fa-calculator"></i> Matemáticas de tu plan</div>
+        <div id="formulas-content"></div>
+      </div>
+
     </div>
-    <div id="gi-tip" class="warn-badge" style="display:none"></div>
   </div>
-
-  <div id="tab-timeline" class="tab-panel">
-    <div id="timeline-content"></div>
-  </div>
-
-  <div id="tab-refs" class="tab-panel">
-    <h3 style="margin-bottom:1rem">Evidencia científica de referencia</h3>
-    <div id="refs-content"></div>
-  </div>
-
-  <div id="tab-formulas" class="tab-panel">
-    <h3 style="margin-bottom:1rem">Matemáticas aplicadas a tu plan</h3>
-    <div id="formulas-content" style="font-size:12px; color:var(--text); line-height:1.6; background:var(--surface2); padding:1rem; border-radius:4px; border:1px solid var(--border);">
-      </div>
-  </div>
-
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
-<script>
-let macroChartInst = null;
-
-document.getElementById('temp').addEventListener('input', function(){
-  document.getElementById('tempVal').textContent = this.value + '°C';
-});
-
-
-
-function setupToggles(groupId) {
-  const group = document.getElementById(groupId);
-  group.querySelectorAll('.toggle-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      group.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
-}
-setupToggles('altitud');
-setupToggles('hidratPrev');
-
-function showTab(name) {
-  document.querySelectorAll('.tab').forEach((t,i) => {
-    const names = ['receta','timeline','refs','formulas']; // ¡Añadido 'formulas' aquí!
-    t.classList.toggle('active', names[i] === name);
-  });
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
-}
-
-function getToggleVal(groupId) {
-  const active = document.querySelector('#' + groupId + ' .toggle-btn.active');
-  return active ? active.dataset.val : null;
-}
-
-function calcular() {
-  const peso = parseFloat(document.getElementById('peso').value) || 70;
-  const edad = parseFloat(document.getElementById('edad').value) || 30;
-  const sexo = document.getElementById('sexo').value;
-  const nivel = document.getElementById('nivel').value;
-  const deporte = document.getElementById('deporte').value;
-  const duracion = parseFloat(document.getElementById('duracion').value) || 90;
-  const intensidad = document.getElementById('intensidad').value;
-  const temp = parseFloat(document.getElementById('temp').value);
-  const humedad = document.getElementById('humedad').value;
-  const altitud = getToggleVal('altitud');
-  const hidratPrev = document.getElementById('hidratPrev').value; 
-  const tolGI = document.getElementById('tolGI').value;
-  const objetivo = document.getElementById('objetivo').value;
-
-  const durH = duracion / 60;
-
-  // Base sweat rate (ml/h) — Sawka et al. 2007, ACSM
-  let sudorBase = 800;
-  if(sexo === 'f') sudorBase *= 0.85;
-  const intMult = {low:0.6, mod:1.0, high:1.4, vhigh:1.8}[intensidad];
-  sudorBase *= intMult;
-  // Temp correction (Nielsen 1992): +100ml per 5°C above 20
-  if(temp > 20) sudorBase += Math.round((temp - 20) / 5) * 100;
-  if(temp < 15) sudorBase -= 100;
-  // Humidity: >70% reduces evaporation but increases perceived sweat
-  if(humedad === 'humedo') sudorBase *= 1.1;
-  // Altitude: +5% per 1000m (Maughan & Shirreffs)
-  if(altitud === 'medium') sudorBase *= 1.05;
-  if(altitud === 'high') sudorBase *= 1.12;
-  // Weight scaling
-  sudorBase = sudorBase * (peso / 70);
-  sudorBase = Math.round(sudorBase);
-
-  // Fluid recommendation (Sawka 2007, Burke 2011)
-  let aguaRec = sudorBase;
-  // For long events, don't overdrink (hyponatremia risk)
-  if(duracion > 180 && aguaRec > 1200) aguaRec = 1200;
-  if(objetivo === 'weight') aguaRec = Math.round(aguaRec * 0.9);
-  if(hidratPrev === 'poor') aguaRec = Math.min(aguaRec * 1.15, 1400);
-  aguaRec = Math.round(aguaRec / 10) * 10;
-
-  // CHO recommendation (Jeukendrup 2004, 2010, 2014)
-  // Duracion < 45min: no carbs needed
-  // 45-75min: small amounts ok
-  // >2.5h: up to 90g/h with glucose+fructose
-  let carbsRec = 0;
-  if(duracion >= 45 && duracion < 75) carbsRec = 20;
-  else if(duracion >= 75 && duracion < 120) carbsRec = 40;
-  else if(duracion >= 120 && duracion < 150) carbsRec = 55;
-  else if(duracion >= 150) carbsRec = durH >= 2.5 ? 70 : 60;
-
-  if(intensidad === 'high') carbsRec = Math.min(carbsRec + 10, 90);
-  if(intensidad === 'vhigh') carbsRec = Math.min(carbsRec + 20, 90);
-  if(nivel === 'elite') carbsRec = Math.min(carbsRec + 5, 90);
-
-  // GI tolerance cap
-  if(tolGI === 'low') carbsRec = Math.min(carbsRec, 40);
-  if(tolGI === 'med') carbsRec = Math.min(carbsRec, 65);
-  if(objetivo === 'weight') carbsRec = Math.round(carbsRec * 0.6);
-  if(objetivo === 'health') carbsRec = Math.round(carbsRec * 0.8);
-  if(deporte === 'gym') carbsRec = Math.min(carbsRec, 50);
-  carbsRec = Math.round(carbsRec);
-
-  // Sodium (Maughan & Shirreffs 2010, Stofan 2005)
-  // Sweat [Na] ≈ 35-60 mmol/L → 800-1400 mg/L typical
-  let sodioRec = 600; // mg/h base
-  if(temp > 25) sodioRec += 100;
-  if(temp > 35) sodioRec += 150;
-  if(intensidad === 'high' || intensidad === 'vhigh') sodioRec += 100;
-  if(duracion > 120) sodioRec += 100;
-  // Heavy sweaters (male, heavier, hot)
-  if(sexo === 'm' && peso > 80) sodioRec += 100;
-  if(altitud === 'high') sodioRec -= 50;
-  sodioRec = Math.round(sodioRec / 50) * 50;
-
-  // Concentrations per 500ml (half hour equiv roughly)
-  const aguaPor500 = 500;
-  const azucarPor500 = duracion < 45 ? 0 : Math.round((carbsRec * 0.5) / 2); // g per 500ml, approx per 30min
-  // Actually: for recipe, calculate per 500ml bottle
-  const carbsPerml = carbsRec / aguaRec; // g/ml per hour
-  const carbsPor500 = Math.round(carbsPerml * 500 * 10) / 10;
-  const sodioPerml = sodioRec / aguaRec;
-  const sodioPor500 = Math.round(sodioPerml * 500);
-  // Salt: 1g NaCl = 393mg Na
-  const salPor500g = Math.round((sodioPor500 / 393) * 10) / 10;
-
-  const totalPerdida = Math.round(sudorBase * durH / 100) / 10; // litros
-
-  // Update UI
-  document.getElementById('results').style.display = 'block';
-  const deporteNames = {running:'Correr', cycling:'Ciclismo'};
-  const intNames = {low:'intensidad baja',mod:'intensidad moderada',high:'intensidad alta',vhigh:'intensidad máxima'};
-  const textoHumedad = humedad === 'seco' ? 'Seco' : (humedad === 'humedo' ? 'Húmedo' : 'Normal');
-  document.getElementById('res-sport-label').textContent = deporteNames[deporte] + ' — ' + duracion + ' min a ' + intNames[intensidad];
-  document.getElementById('res-summary-line').textContent = peso + 'kg · ' + temp + '°C · Clima ' + textoHumedad;
-  document.getElementById('res-sweat').textContent = totalPerdida + ' L';
-  document.getElementById('m-agua').textContent = aguaRec;
-  document.getElementById('m-carbs').textContent = carbsRec;
-  document.getElementById('m-sodio').textContent = sodioRec;
-
-  // Sweat warning
-  const sweatWarn = document.getElementById('sweat-warn');
-  if(totalPerdida > 2) {
-    sweatWarn.style.display = 'block';
-    sweatWarn.textContent = '⚠ Pérdida estimada de ' + totalPerdida + 'L — riesgo elevado de deshidratación. Prioriza hidratación pre-ejercicio y asegura suministro continuo durante la prueba.';
-  } else { sweatWarn.style.display = 'none'; }
-
-  // Recipe
-  let rows = '';
-  rows += `<div class="recipe-row"><span class="recipe-ingredient">Agua</span><span class="recipe-amount">500 ml</span></div>`;
-  if(carbsPor500 > 0) {
-    rows += `<div class="recipe-row"><span class="recipe-ingredient">Azúcar de mesa*</span><span class="recipe-amount">${carbsPor500} g</span></div>`;
-  }
-  rows += `<div class="recipe-row"><span class="recipe-ingredient">Sal (NaCl)</span><span class="recipe-amount">${salPor500g} g</span></div>`;
-  const osm = Math.round(carbsPor500 * 5.5 + sodioPor500 * 0.087 + (sodioPor500/393) * 0.5 * 2000 * 0.001);
-  const osmReal = Math.round(carbsPor500 / 500 * 1000 * 5.55 * 2 + sodioPor500 / 500 * 1000 * 2);
-  rows += `<div class="recipe-row" style="border-top:1px solid var(--accent);margin-top:4px"><span class="recipe-ingredient" style="color:var(--muted)">Osmolalidad aprox.</span><span class="recipe-amount" style="color:var(--accent)">${osmReal} mOsm/kg</span></div>`;
-  document.getElementById('recipe-rows').innerHTML = rows;
-
-  const concPct = Math.round(carbsPor500 / 500 * 100 * 10) / 10;
-  let isoNote = '';
-  if(osmReal < 270) isoNote = 'Hipotónica — absorción de agua muy rápida, ideal para calor extremo.';
-  else if(osmReal <= 330) isoNote = 'Isotónica — equilibrio óptimo absorción agua/energía, recomendado.';
-  else isoNote = 'Hipertónica — mayor densidad energética, puede ralentizar absorción hídrica.';
-  document.getElementById('recipe-note').innerHTML = `*Azúcar de mesa = sacarosa (50% glucosa + 50% fructosa). Usa transportadores SGLT1 y GLUT5 independientes → absorción máxima.<br><br><span style="color:var(--accent)">${isoNote}</span>`;
-
-  // GI tip
-  const giTip = document.getElementById('gi-tip');
-  if(tolGI === 'low') {
-    giTip.style.display = 'block';
-    giTip.textContent = 'Tolerancia GI baja detectada: considera entrenar el intestino con pequeñas ingestas desde el inicio. Evita concentraciones >6% CHO y fructosa >30g/h.';
-  } else { giTip.style.display = 'none'; }
-
-  // Chart
-  if(macroChartInst) macroChartInst.destroy();
-  const ctx = document.getElementById('macroChart').getContext('2d');
-  const glucosa = Math.round(carbsPor500 / 2 * 10) / 10;
-  const fructosa = Math.round(carbsPor500 / 2 * 10) / 10;
-  const sodioG = Math.round(sodioPor500 / 10) / 100;
-  const cloruro = Math.round((salPor500g - sodioG) * 100) / 100;
-  const aguaKcal = 0;
-  const carbsKcal = Math.round(carbsPor500 * 4);
-  macroChartInst = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Glucosa', 'Fructosa', 'Sodio (mg)', 'Agua'],
-      datasets: [{
-        data: [glucosa > 0 ? glucosa : 0.01, fructosa > 0 ? fructosa : 0.01, Math.round(sodioPor500 / 10)/10, 10],
-        backgroundColor: ['#4ade80','#86efac','#fbbf24','#374151'],
-        borderWidth: 0
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: {
-        callbacks: { label: (c) => c.label + ': ' + (c.dataIndex < 3 ? c.raw + 'g' : '500ml') }
-      }}
-    }
-  });
-  document.getElementById('chart-legend').innerHTML = [
-    {c:'#4ade80',l:'Glucosa ' + glucosa + 'g'},
-    {c:'#86efac',l:'Fructosa ' + fructosa + 'g'},
-    {c:'#fbbf24',l:'Na ' + sodioPor500 + 'mg'},
-    {c:'#374151',l:'Agua 500ml'}
-  ].map(x => `<span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:${x.c}"></span>${x.l}</span>`).join('');
-
-  // Timeline
-  const intervals = [];
-  const steps = Math.floor(duracion / 20) + 1;
-  for(let i = 0; i <= steps; i++) {
-    const t = i * 20;
-    if(t > duracion) break;
-    const mlEste = i === 0 ? Math.round(aguaRec * 20/60 * 1.3) : Math.round(aguaRec * 20/60);
-    const carbEste = i === 0 ? (carbsRec > 0 ? Math.round(carbsRec * 20/60 * 0.5) : 0) : (carbsRec > 0 ? Math.round(carbsRec * 20/60) : 0);
-    let accion = '';
-    if(i === 0 && hidratPrev !== 'poor') accion = `Inicio: ${mlEste}ml agua`;
-    else if(i === 0) accion = `Pre-carga: ${mlEste}ml + ${carbEste}g azúcar + sal`;
-    else accion = `${mlEste}ml bebida isotónica${carbEste > 0 ? ' + ' + carbEste + 'g CHO' : ''}`;
-    const pct = Math.round((mlEste / (aguaRec * 20/60 * 1.3)) * 100);
-    intervals.push({t, accion, pct, ml: mlEste});
-  }
-
-  let tlHtml = `<div style="font-size:11px;color:var(--muted);margin-bottom:1rem">Toma cada 15-20 minutos. Total fluidos: <span style="color:var(--accent)">${Math.round(aguaRec * durH / 100) / 10} L</span> | CHO total: <span style="color:var(--accent)">${Math.round(carbsRec * durH)} g</span></div>`;
-  intervals.forEach(item => {
-    const h = Math.floor(item.t / 60).toString().padStart(2,'0');
-    const m = (item.t % 60).toString().padStart(2,'0');
-    tlHtml += `<div class="t-row">
-      <div class="t-time">${h}:${m}</div>
-      <div class="t-bar">
-        <div class="t-label">${item.accion}</div>
-        <div class="t-track"><div class="t-fill" style="width:${Math.min(item.pct,100)}%"></div></div>
-      </div>
-    </div>`;
-  });
-  document.getElementById('timeline-content').innerHTML = tlHtml;
-
-  // References
-  const refs = [
-    {id:'[1]', autor:'Jeukendrup, A.E. (2004)', titulo:'Carbohydrate intake during exercise and performance', hallazgo:'60g/h de glucosa = absorción máxima del transportador SGLT1. Mezcla glucosa+fructosa permite hasta 90g/h al activar GLUT5.', journal:'Nutrition'},
-    {id:'[2]', autor:'Sawka et al. (2007)', titulo:'American College of Sports Medicine Position Stand on Exercise and Fluid Replacement', hallazgo:'Tasa de sudoración 0.5-2.0 L/h según intensidad y temperatura. Déficit >2% del peso deteriora rendimiento aeróbico.', journal:'Med Sci Sports Exerc'},
-    {id:'[3]', autor:'Maughan & Shirreffs (2010)', titulo:'Dehydration and rehydration in competitive sport', hallazgo:'[Na⁺] en sudor: 20-80 mmol/L (media 35-50). Soluciones con 400-700mg Na/L optimizan absorción intestinal de agua.', journal:'Scand J Med Sci Sports'},
-    {id:'[4]', autor:'Stofan et al. (2005)', titulo:'Sweat and sodium losses in NCAA football players', hallazgo:'Atletas con alta tasa de sudoración pueden perder 1000-1750mg Na/h. La sal en la bebida previene hiponatremia.', journal:'Int J Sport Nutr'},
-    {id:'[5]', autor:'Jeukendrup, A.E. (2014)', titulo:'A step towards personalized sports nutrition: carbohydrate intake during exercise', hallazgo:'Soluciones isotónicas (270-330 mOsm/kg) vacían el estómago más rápido. Azúcar de mesa (sacarosa) = fuente ideal de glucosa+fructosa 1:1.', journal:'Sports Medicine'},
-    {id:'[6]', autor:'Burke et al. (2011)', titulo:'Carbohydrates for training and competition', hallazgo:'Entrenar el intestino (gut training) aumenta tolerancia a CHO hasta 90g/h. Empezar con dosis bajas e incrementar gradualmente.', journal:'J Sports Sci'},
-  ];
-
-  let refsHtml = '';
-  refs.forEach(r => {
-    refsHtml += `<div class="ref-item"><span class="ref-badge">${r.id}</span><span style="color:var(--text);font-weight:500">${r.autor}</span> — <span class="ref-text">${r.titulo} (${r.journal})</span><div class="ref-finding">→ ${r.hallazgo}</div></div>`;
-  });
-  document.getElementById('refs-content').innerHTML = refsHtml;
-
-  // --- NUEVA SECCIÓN: INYECCIÓN DE FÓRMULAS ---
-  let formulasHtml = `
-    <p><strong>1. Estimación de Sudoración:</strong></p>
-    <p style="color:var(--muted); margin-bottom:10px;">
-      Base (800ml) × Multiplicador de Intensidad (${intMult}) × Peso (${peso}/70kg) ± Ajustes Clima = <span style="color:var(--accent)">${sudorBase} ml/h</span>
-    </p>
-
-    <p><strong>2. Límite de Carbohidratos (CHO):</strong></p>
-    <p style="color:var(--muted); margin-bottom:10px;">
-      Base por tiempo (${duracion} min) + Modificador Intensidad - Tope Tolerancia GI (${tolGI}) = <span style="color:var(--accent)">${carbsRec} g/h</span>
-    </p>
-
-    <p><strong>3. Reposición de Sodio y Sal:</strong></p>
-    <p style="color:var(--muted); margin-bottom:10px;">
-      Base (600mg) + Modificadores (Calor/Intensidad/Duración) = <span style="color:var(--accent)">${sodioRec} mg/h de Sodio</span><br>
-      <em>Conversión a sal casera: ${sodioRec} mg / 393 = <span style="color:var(--accent)">${(Math.round((sodioRec/393)*10)/10)} g de Sal (NaCl)</span></em>
-    </p>
-    
-    <p><strong>4. Concentración de la mezcla final:</strong></p>
-    <p style="color:var(--muted);">
-      Fórmula de vaciado gástrico: (Gramos CHO / Agua) × 100<br>
-      (${carbsPor500}g / 500ml) × 100 = <span style="color:var(--accent)">${concPct}%</span> (Concentración isotónica recomendada entre 6% y 8%).
-    </p>
-  `;
-  document.getElementById('formulas-content').innerHTML = formulasHtml;
-
-  document.getElementById('results').scrollIntoView({behavior:'smooth', block:'start'});
-}
-
-// Animate fills after calc
-function animateTimeline() {
-  document.querySelectorAll('.t-fill').forEach((el, i) => {
-    const w = el.style.width;
-    el.style.width = '0';
-    setTimeout(() => { el.style.width = w; }, i * 80);
-  });
-}
-const origCalc = calcular;
-</script>
+<script src="js/script.js"></script>
+</body>
+</html>
