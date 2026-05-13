@@ -116,9 +116,6 @@
       <select id="deporte">
         <option value="running">Running / Trail</option>
         <option value="cycling">Ciclismo</option>
-        <option value="triathlon">Triatlón</option>
-        <option value="football">Fútbol / Deportes de equipo</option>
-        <option value="swimming">Natación</option>
         <option value="gym">Gimnasio / Fuerza</option>
       </select>
     </div>
@@ -147,12 +144,14 @@
         <input type="range" id="temp" min="5" max="45" value="20" step="1">
       </div>
     </div>
-    <div class="field">
-      <label>Humedad relativa (%): <span id="humedadVal" style="color:var(--accent)">50%</span></label>
-      <div class="range-wrap">
-        <input type="range" id="humedad" min="10" max="100" value="50" step="5">
+  <div class="field">
+        <label>Humedad ambiental</label>
+        <select id="humedad">
+          <option value="seco">Seco (Poca humedad)</option>
+          <option value="normal" selected>Normal</option>
+          <option value="humedo">Húmedo (Sensación bochornosa)</option>
+        </select>
       </div>
-    </div>
     <div class="field">
       <label>Altitud</label>
       <div class="toggle-row" id="altitud">
@@ -164,12 +163,12 @@
 
     <h3 style="margin-top:1rem">Estado y objetivo</h3>
     <div class="field">
-      <label>Estado de hidratación previo</label>
-      <div class="toggle-row" id="hidratPrev">
-        <button class="toggle-btn active" data-val="good">Bien hidratado</button>
-        <button class="toggle-btn" data-val="mild">Leve déficit</button>
-        <button class="toggle-btn" data-val="poor">Deshidratado</button>
-      </div>
+          <label>Estado de hidratación previo</label>
+          <select id="hidratPrev">
+            <option value="good" selected>Bien hidratado</option>
+            <option value="mild">Leve déficit (Tengo algo de sed)</option>
+            <option value="poor">Deshidratado (Orina muy oscura)</option>
+          </select>
     </div>
     <div class="field">
       <label>Tolerancia GI</label>
@@ -277,9 +276,8 @@ let macroChartInst = null;
 document.getElementById('temp').addEventListener('input', function(){
   document.getElementById('tempVal').textContent = this.value + '°C';
 });
-document.getElementById('humedad').addEventListener('input', function(){
-  document.getElementById('humedadVal').textContent = this.value + '%';
-});
+
+
 
 function setupToggles(groupId) {
   const group = document.getElementById(groupId);
@@ -316,9 +314,9 @@ function calcular() {
   const duracion = parseFloat(document.getElementById('duracion').value) || 90;
   const intensidad = document.getElementById('intensidad').value;
   const temp = parseFloat(document.getElementById('temp').value);
-  const humedad = parseFloat(document.getElementById('humedad').value);
+  const humedad = document.getElementById('humedad').value;
   const altitud = getToggleVal('altitud');
-  const hidratPrev = getToggleVal('hidratPrev');
+  const hidratPrev = document.getElementById('hidratPrev').value; 
   const tolGI = document.getElementById('tolGI').value;
   const objetivo = document.getElementById('objetivo').value;
 
@@ -333,7 +331,7 @@ function calcular() {
   if(temp > 20) sudorBase += Math.round((temp - 20) / 5) * 100;
   if(temp < 15) sudorBase -= 100;
   // Humidity: >70% reduces evaporation but increases perceived sweat
-  if(humedad > 70) sudorBase *= 1.1;
+  if(humedad === 'humedo') sudorBase *= 1.1;
   // Altitude: +5% per 1000m (Maughan & Shirreffs)
   if(altitud === 'medium') sudorBase *= 1.05;
   if(altitud === 'high') sudorBase *= 1.12;
@@ -398,10 +396,11 @@ function calcular() {
 
   // Update UI
   document.getElementById('results').style.display = 'block';
-  const deporteNames = {running:'Running / Trail',cycling:'Ciclismo',triathlon:'Triatlón',football:'Fútbol',swimming:'Natación',gym:'Gimnasio'};
+  const deporteNames = {running:'Correr', cycling:'Ciclismo'};
   const intNames = {low:'intensidad baja',mod:'intensidad moderada',high:'intensidad alta',vhigh:'intensidad máxima'};
+  const textoHumedad = humedad === 'seco' ? 'Seco' : (humedad === 'humedo' ? 'Húmedo' : 'Normal');
   document.getElementById('res-sport-label').textContent = deporteNames[deporte] + ' — ' + duracion + ' min a ' + intNames[intensidad];
-  document.getElementById('res-summary-line').textContent = peso + 'kg · ' + temp + '°C · ' + humedad + '% HR';
+  document.getElementById('res-summary-line').textContent = peso + 'kg · ' + temp + '°C · Clima ' + textoHumedad;
   document.getElementById('res-sweat').textContent = totalPerdida + ' L';
   document.getElementById('m-agua').textContent = aguaRec;
   document.getElementById('m-carbs').textContent = carbsRec;
