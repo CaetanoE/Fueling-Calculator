@@ -28,9 +28,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14
 /* NAV */
 .nav{background:var(--nav);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100}
 .nav-brand{display:flex;align-items:center;gap:12px}
-.nav-logo{width:36px;height:36px;border-radius:50%;border:2px solid var(--cyan);display:flex;align-items:center;justify-content:center;color:var(--cyan);font-size:16px}
-.nav-name{font-family:var(--rajdhani);font-size:18px;font-weight:700;color:var(--text);letter-spacing:0.5px}
-.nav-sub{font-size:11px;color:var(--cyan);font-weight:500;letter-spacing:1px;text-transform:uppercase}
+.brand-img{height:44px;width:auto;display:block} /* Ajustamos la altura para que respire en los 60px del nav */
 .nav-badge{background:rgba(0,200,255,0.1);border:1px solid var(--border2);color:var(--cyan);font-size:11px;padding:4px 12px;border-radius:20px;letter-spacing:0.5px}
 
 /* LAYOUT */
