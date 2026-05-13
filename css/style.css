@@ -108,8 +108,8 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 .recipe-note strong{color:var(--text2)}
 
 /* TIMELINE CARD */
-.timeline-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
-.timeline-scroll{overflow-x:auto;padding-bottom:4px}
+.timeline-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;display:flex;flex-direction:column;justify-content:center}
+.timeline-scroll{overflow-x:auto;padding-top:10px;padding-bottom:4px}
 .tl-track{display:flex;align-items:flex-start;position:relative;justify-content:space-between;width:100%;padding:0 0.5rem}
 .tl-line{position:absolute;top:24px;left:calc(0.5rem + 24px);right:calc(0.5rem + 24px);height:2px;background:linear-gradient(90deg,var(--cyan),var(--blue2));z-index:0}
 .tl-item{display:flex;flex-direction:column;align-items:center;position:relative;z-index:1;flex:1;min-width:0}

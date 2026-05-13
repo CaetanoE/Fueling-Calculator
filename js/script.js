@@ -189,12 +189,12 @@ function calcular() {
     const carbEste = hasCarbs ? Math.round(carbsRec * tInterval/60) : 0;
     const kcalEste = Math.round(carbEste * 4);
 
-    let type = 'type-water';
+  let type = 'type-water';
     let icon = 'fa-droplet';
-    let desc = 'Agua + Electrolitos';
+    let desc = carbsRec > 0 ? 'Toma de bebida' : 'Toma de agua + sal';
+    
     if(isFirst) { type='type-start'; icon='fa-flag'; desc='Inicio'; }
     else if(isLast) { type='type-end'; icon='fa-flag-checkered'; desc='Fin'; }
-    else if(hasCarbs) { type='type-gel'; icon='fa-bolt'; desc='Bebida energética'; }
 
     const item = document.createElement('div');
     item.className = 'tl-item';
