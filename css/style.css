@@ -37,12 +37,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14
 .app{display:grid;grid-template-columns:320px 1fr;min-height:calc(100vh - 60px)}
 
 /* SIDEBAR */
-.sidebar{background:var(--surface);border-right:1px solid var(--border);padding:1.5rem;overflow-y:auto}
-.sidebar-title{font-family:var(--rajdhani);font-size:14px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px}
+.sidebar{background:var(--surface);border-right:1px solid var(--border);padding:1.25rem 1rem;overflow-y:auto}
+.sidebar-title{font-family:var(--rajdhani);font-size:14px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:2px;margin-bottom:0.75rem;display:flex;align-items:center;gap:8px}
 .sidebar-title i{font-size:13px}
-.field{margin-bottom:1.35rem}
-.field label{display:block;font-size:11px;font-weight:600;color:var(--text2);margin-bottom:7px;letter-spacing:0.8px;text-transform:uppercase}
-.field input[type=number],.field select{width:100%;background-color:var(--surface2);border:1px solid var(--border);color:var(--text);padding:11px 14px;border-radius:8px;font-family:var(--font);font-size:13px;outline:none;transition:border-color 0.2s,background-color 0.2s;appearance:none;-webkit-appearance:none}
+.field{margin-bottom:0.75rem}
+.field label{display:block;font-size:11px;font-weight:600;color:var(--text2);margin-bottom:4px;letter-spacing:0.8px;text-transform:uppercase}
+.field input[type=number],.field select{width:100%;background-color:var(--surface2);border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-family:var(--font);font-size:13px;outline:none;transition:border-color 0.2s,background-color 0.2s;appearance:none;-webkit-appearance:none}
 .field input:focus,.field select:focus{border-color:var(--cyan);background-color:var(--surface3)}
 .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238aa4c8' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
 .field select option{background:#1a2535}
@@ -50,13 +50,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14
 .toggle-row{display:flex;gap:6px;flex-wrap:wrap}
 .toggle-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text2);padding:6px 10px;border-radius:6px;cursor:pointer;font-family:var(--font);font-size:11px;transition:all 0.15s;font-weight:500}
 .toggle-btn.active{background:rgba(0,200,255,0.15);border-color:var(--cyan);color:var(--cyan)}
-.divider{height:1px;background:var(--border);margin:1.25rem 0}
+.divider{height:1px;background:var(--border);margin:0.75rem 0}
 .range-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
 .range-label span{font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:0.8px}
 .range-label .range-val{color:var(--cyan);font-size:13px;font-weight:600}
 input[type=range]{width:100%;height:4px;-webkit-appearance:none;appearance:none;background:var(--surface3);border-radius:2px;outline:none;cursor:pointer}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--cyan);border:2px solid var(--bg);box-shadow:0 0 8px rgba(0,200,255,0.4)}
-.calc-btn{width:100%;background:linear-gradient(135deg,var(--cyan) 0%,var(--blue) 100%);color:#000;border:none;padding:12px;border-radius:8px;font-family:var(--rajdhani);font-size:15px;font-weight:700;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:opacity 0.15s,transform 0.1s;margin-top:1.25rem}
+.calc-btn{width:100%;background:linear-gradient(135deg,var(--cyan) 0%,var(--blue) 100%);color:#000;border:none;padding:10px;border-radius:8px;font-family:var(--rajdhani);font-size:15px;font-weight:700;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:opacity 0.15s,transform 0.1s;margin-top:0.5rem}
 .calc-btn:hover{opacity:0.92;transform:translateY(-1px)}
 .calc-btn:active{transform:translateY(0)}
 

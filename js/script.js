@@ -3,20 +3,7 @@ document.getElementById('temp').addEventListener('input', function(){
   document.getElementById('tempVal').textContent = this.value + '°C';
 });
 
-function setupToggles(groupId) {
-  document.getElementById(groupId).querySelectorAll('.toggle-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.getElementById(groupId).querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
-}
-setupToggles('altitud');
 
-function getToggleVal(groupId) {
-  const active = document.querySelector('#' + groupId + ' .toggle-btn.active');
-  return active ? active.dataset.val : null;
-}
 
 function togglePanel(name) {
   const panel = document.getElementById('panel-' + name);
@@ -47,7 +34,7 @@ function calcular() {
   const intensidad = document.getElementById('intensidad').value;
   const temp = parseFloat(document.getElementById('temp').value);
   const humedad = document.getElementById('humedad').value;
-  const altitud = getToggleVal('altitud');
+  const altitud = document.getElementById('altitud').value;
   const hidratPrev = document.getElementById('hidratPrev').value;
   const tolGI = document.getElementById('tolGI').value;
   const objetivo = document.getElementById('objetivo').value;

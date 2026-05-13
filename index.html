@@ -23,45 +23,40 @@
 
 <div class="app">
 
-  <div class="sidebar">
-    <div class="sidebar-title"><i class="fa-solid fa-sliders"></i> Configuración</div>
-
-    <div class="field">
-      <label>Peso corporal</label>
-      <input type="number" id="peso" value="70" min="40" max="120" step="1" style="text-align:right">
-      <span style="position:relative;pointer-events:none"></span>
-    </div>
-    <div style="position:relative;margin-top:-46px;margin-bottom:1rem;pointer-events:none;text-align:right;padding-right:14px;font-size:11px;color:var(--text3)">kg</div>
-
+<div class="sidebar">
+    <div class="sidebar-title"><i class="fa-solid fa-sliders"></i> Atleta</div>
     <div class="row2">
+      <div class="field">
+        <label>Peso (kg)</label>
+        <input type="number" id="peso" value="70" min="40" max="120" step="1">
+      </div>
       <div class="field">
         <label>Edad</label>
         <input type="number" id="edad" value="30" min="15" max="75">
       </div>
+    </div>
+    <div class="row2">
       <div class="field">
         <label>Sexo</label>
         <select id="sexo">
-          <option value="m">Masculino</option>
-          <option value="f">Femenino</option>
+          <option value="m">Hombre</option>
+          <option value="f">Mujer</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Nivel</label>
+        <select id="nivel">
+          <option value="novice">Principiante</option>
+          <option value="intermediate" selected>Medio</option>
+          <option value="advanced">Avanzado</option>
+          <option value="elite">Élite</option>
         </select>
       </div>
     </div>
 
-    <div class="field">
-      <label>Nivel</label>
-      <select id="nivel">
-        <option value="novice">Principiante (&lt;2 años)</option>
-        <option value="intermediate" selected>Intermedio (2-5 años)</option>
-        <option value="advanced">Avanzado (+5 años)</option>
-        <option value="elite">Elite / Profesional</option>
-      </select>
-    </div>
-
     <div class="divider"></div>
-    <div class="sidebar-title" style="margin-bottom:1rem"><i class="fa-solid fa-route"></i> Prueba</div>
-
+    <div class="sidebar-title"><i class="fa-solid fa-route"></i> Prueba</div>
     <div class="field">
-      <label>Deporte</label>
       <select id="deporte">
         <option value="running">Running / Trail</option>
         <option value="cycling">Ciclismo</option>
@@ -69,7 +64,6 @@
         <option value="gym">Gimnasio / Fuerza</option>
       </select>
     </div>
-
     <div class="row2">
       <div class="field">
         <label>Duración (min)</label>
@@ -79,7 +73,7 @@
         <label>Intensidad</label>
         <select id="intensidad">
           <option value="low">Baja Z1-Z2</option>
-          <option value="mod" selected>Moderada Z3</option>
+          <option value="mod" selected>Media Z3</option>
           <option value="high">Alta Z4</option>
           <option value="vhigh">Máxima Z5</option>
         </select>
@@ -87,8 +81,7 @@
     </div>
 
     <div class="divider"></div>
-    <div class="sidebar-title" style="margin-bottom:1rem"><i class="fa-solid fa-cloud-sun"></i> Entorno</div>
-
+    <div class="sidebar-title"><i class="fa-solid fa-cloud-sun"></i> Entorno</div>
     <div class="field">
       <div class="range-label">
         <span>Temperatura</span>
@@ -96,57 +89,55 @@
       </div>
       <input type="range" id="temp" min="5" max="45" value="20" step="1">
     </div>
-
-    <div class="field">
-      <label>Humedad</label>
-      <select id="humedad">
-        <option value="seco">Seco</option>
-        <option value="normal" selected>Normal</option>
-        <option value="humedo">Húmedo / Bochornoso</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label>Altitud</label>
-      <div class="toggle-row" id="altitud">
-        <button class="toggle-btn active" data-val="low">Nivel del mar</button>
-        <button class="toggle-btn" data-val="medium">500-2000m</button>
-        <button class="toggle-btn" data-val="high">+2000m</button>
+    <div class="row2">
+      <div class="field">
+        <label>Humedad</label>
+        <select id="humedad">
+          <option value="seco">Seco</option>
+          <option value="normal" selected>Normal</option>
+          <option value="humedo">Húmedo</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Altitud</label>
+        <select id="altitud">
+          <option value="low" selected>Mar</option>
+          <option value="medium">Media</option>
+          <option value="high">Alta</option>
+        </select>
       </div>
     </div>
 
     <div class="divider"></div>
-    <div class="sidebar-title" style="margin-bottom:1rem"><i class="fa-solid fa-person-running"></i> Estado</div>
-
+    <div class="sidebar-title"><i class="fa-solid fa-person-running"></i> Estado</div>
     <div class="field">
-      <label>Hidratación previa</label>
+      <label>Hidratación inicial</label>
       <select id="hidratPrev">
         <option value="good" selected>Bien hidratado</option>
-        <option value="mild">Leve déficit (algo de sed)</option>
-        <option value="poor">Deshidratado (orina oscura)</option>
+        <option value="mild">Leve déficit (sed)</option>
+        <option value="poor">Deshidratado</option>
       </select>
     </div>
-
-    <div class="field">
-      <label>Tolerancia GI</label>
-      <select id="tolGI">
-        <option value="high">Alta — sin problemas</option>
-        <option value="med" selected>Media — ocasionalmente</option>
-        <option value="low">Baja — problemas frecuentes</option>
-      </select>
+    <div class="row2">
+      <div class="field">
+        <label>Estómago</label>
+        <select id="tolGI">
+          <option value="high">Fuerte</option>
+          <option value="med" selected>Normal</option>
+          <option value="low">Sensible</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Objetivo</label>
+        <select id="objetivo">
+          <option value="perf">Rendimiento</option>
+          <option value="endurance" selected>Acabar</option>
+          <option value="health">Salud</option>
+        </select>
+      </div>
     </div>
 
-    <div class="field">
-      <label>Objetivo</label>
-      <select id="objetivo">
-        <option value="perf">Rendimiento máximo</option>
-        <option value="endurance" selected>Resistencia / completar</option>
-        <option value="health">Salud / bienestar</option>
-        <option value="weight">Control de peso</option>
-      </select>
-    </div>
-
-    <button class="calc-btn" onclick="calcular()"><i class="fa-solid fa-bolt" style="margin-right:8px"></i>Calcular plan</button>
+    <button class="calc-btn" onclick="calcular()"><i class="fa-solid fa-bolt" style="margin-right:8px"></i>Calcular</button>
   </div>
 
   <div class="main" id="mainArea">
