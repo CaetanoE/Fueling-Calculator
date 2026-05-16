@@ -1,30 +1,66 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fueling App — Hidratación Deportiva</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fueling App — Hidratación Deportiva</title>
+
+  <!-- Fuentes: Inter (cuerpo) + Nunito (cabeceras y KPIs) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Iconos Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Estilos propios -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+
+<!-- BARRA DE NAVEGACIÓN -->
 <nav class="nav">
+
+  <!-- Branding (logo + nombre) -->
   <div class="nav-brand">
-    <div class="nav-logo"><i class="fa-solid fa-compass"></i></div>
+    <div class="nav-logo">
+      <!-- Sustituye el icono por el SVG del logo si quieres -->
+      <i class="fa-solid fa-compass"></i>
+    </div>
     <div>
       <div class="nav-name">Caetano Eirea</div>
       <div class="nav-sub">Fueling App</div>
     </div>
   </div>
-  <div class="nav-badge"><i class="fa-solid fa-flask" style="margin-right:6px"></i>Ciencia aplicada al deporte</div>
+
+  <!-- Badge informativo (se oculta en móvil) -->
+  <div class="nav-badge">
+    <i class="fa-solid fa-flask" style="margin-right:6px"></i>Ciencia aplicada al deporte
+  </div>
+
+  <!-- Botón hamburger — solo visible en móvil (<=640px) -->
+  <button class="hamburger" onclick="toggleSidebar()" aria-label="Abrir configuración">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+
 </nav>
 
+
+<!-- OVERLAY — oscurece el contenido al abrir sidebar en móvil -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+
+<!-- LAYOUT PRINCIPAL -->
 <div class="app">
 
-<div class="sidebar">
+
+  <!-- SIDEBAR — Panel de configuración
+       Escritorio: columna izquierda fija
+       Móvil: desliza desde la izquierda al pulsar hamburger -->
+  <div class="sidebar" id="sidebar">
+
+    <!-- Sección 1: Datos del atleta -->
     <div class="sidebar-title"><i class="fa-solid fa-sliders"></i> Atleta</div>
+
     <div class="row2">
       <div class="field">
         <label>Peso (kg)</label>
@@ -35,6 +71,7 @@
         <input type="number" id="edad" value="30" min="15" max="75">
       </div>
     </div>
+
     <div class="row2">
       <div class="field">
         <label>Sexo</label>
@@ -55,7 +92,10 @@
     </div>
 
     <div class="divider"></div>
+
+    <!-- Sección 2: Datos de la prueba -->
     <div class="sidebar-title"><i class="fa-solid fa-route"></i> Prueba</div>
+
     <div class="field">
       <select id="deporte">
         <option value="running">Running / Trail</option>
@@ -64,6 +104,7 @@
         <option value="gym">Gimnasio / Fuerza</option>
       </select>
     </div>
+
     <div class="row2">
       <div class="field">
         <label>Duración (min)</label>
@@ -81,14 +122,19 @@
     </div>
 
     <div class="divider"></div>
+
+    <!-- Sección 3: Condiciones ambientales -->
     <div class="sidebar-title"><i class="fa-solid fa-cloud-sun"></i> Entorno</div>
+
     <div class="field">
+      <!-- Slider con valor reactivo actualizado por JS -->
       <div class="range-label">
         <span>Temperatura</span>
         <span class="range-val" id="tempVal">20°C</span>
       </div>
       <input type="range" id="temp" min="5" max="45" value="20" step="1">
     </div>
+
     <div class="row2">
       <div class="field">
         <label>Humedad</label>
@@ -109,7 +155,10 @@
     </div>
 
     <div class="divider"></div>
+
+    <!-- Sección 4: Estado del atleta -->
     <div class="sidebar-title"><i class="fa-solid fa-person-running"></i> Estado</div>
+
     <div class="field">
       <label>Hidratación inicial</label>
       <select id="hidratPrev">
@@ -118,6 +167,7 @@
         <option value="poor">Deshidratado</option>
       </select>
     </div>
+
     <div class="row2">
       <div class="field">
         <label>Estómago</label>
@@ -137,107 +187,172 @@
       </div>
     </div>
 
-    <button class="calc-btn" onclick="calcular()"><i class="fa-solid fa-bolt" style="margin-right:8px"></i>Calcular</button>
-  </div>
+    <!-- Botón principal — en móvil cierra el sidebar al pulsar (ver script.js) -->
+    <button class="calc-btn" onclick="calcular()">
+      <i class="fa-solid fa-bolt" style="margin-right:8px"></i>Calcular
+    </button>
 
+  </div>
+  <!-- /sidebar -->
+
+
+  <!-- ÁREA DE CONTENIDO PRINCIPAL -->
   <div class="main" id="mainArea">
 
+    <!-- Estado vacío inicial (se oculta al calcular) -->
     <div class="placeholder" id="placeholder">
       <i class="fa-solid fa-droplet"></i>
       <div style="font-family:var(--rajdhani);font-size:20px;font-weight:700;color:var(--text2)">Tu plan aparecerá aquí</div>
-      <p>Completa los parámetros de la izquierda y pulsa <strong style="color:var(--cyan)">Calcular plan</strong> para obtener tu receta personalizada basada en evidencia científica.</p>
+      <p>Completa los parámetros de la izquierda y pulsa
+        <strong style="color:var(--cyan)">Calcular</strong>
+        para obtener tu receta personalizada basada en evidencia científica.
+      </p>
     </div>
 
+    <!-- Panel de resultados (oculto hasta pulsar Calcular) -->
     <div id="results" style="display:none">
 
+      <!-- Cabecera con KPIs principales -->
       <div class="kpi-header">
+
         <div class="kpi-meta">
           <div>
             <div class="kpi-label" id="res-sport-label">—</div>
             <div class="kpi-title" id="res-summary-line">—</div>
           </div>
+          <!-- Reloj de duración (esquina derecha) -->
           <div class="kpi-duration">
             <div class="kpi-duration-val" id="res-duration">—</div>
             <div class="kpi-duration-sub">Duración total</div>
           </div>
         </div>
+
+        <!-- 4 tarjetas métricas: agua / carbs / sodio / sudor -->
         <div class="kpi-cards">
+
           <div class="kpi-card">
             <div class="kpi-card-val" id="m-agua">—</div>
             <div class="kpi-card-unit">ml/h</div>
             <div class="kpi-card-label">Hidratación</div>
             <div class="kpi-card-sub" id="m-agua-sub">—</div>
           </div>
+
           <div class="kpi-card">
             <div class="kpi-card-val" id="m-carbs">—</div>
             <div class="kpi-card-unit">g/h</div>
             <div class="kpi-card-label">CHO (azúcar)</div>
             <div class="kpi-card-sub" id="m-carbs-sub">—</div>
           </div>
+
           <div class="kpi-card">
             <div class="kpi-card-val" id="m-sodio">—</div>
             <div class="kpi-card-unit">mg/h</div>
             <div class="kpi-card-label">Sodio (sal)</div>
             <div class="kpi-card-sub" id="m-sodio-sub">—</div>
           </div>
+
+          <!-- Se vuelve .danger si pérdida estimada > 2.5L -->
           <div class="kpi-card warn" id="kpi-sweat-card">
             <div class="kpi-card-val" id="m-sweat">—</div>
             <div class="kpi-card-unit">L</div>
             <div class="kpi-card-label">Pérdida sudor</div>
             <div class="kpi-card-sub">estimada total</div>
           </div>
+
         </div>
       </div>
+      <!-- /kpi-header -->
 
-      <div class="sweat-alert" id="sweat-alert"><i class="fa-solid fa-triangle-exclamation" style="margin-right:8px"></i><span id="sweat-alert-text"></span></div>
+      <!-- Alerta de deshidratación (JS la muestra si pérdida > 2L) -->
+      <div class="sweat-alert" id="sweat-alert">
+        <i class="fa-solid fa-triangle-exclamation" style="margin-right:8px"></i>
+        <span id="sweat-alert-text"></span>
+      </div>
 
+      <!-- Grid: Receta (fija 280px) + Timeline (flexible) -->
       <div class="content-grid">
 
+        <!-- Receta práctica por botella de 500ml -->
         <div class="card">
           <div class="card-title"><i class="fa-solid fa-flask-vial"></i> Receta por 500ml</div>
-          <div id="recipe-rows"></div>
-          <div id="osmo-pill-wrap" style="margin-top:10px"></div>
-          <div class="recipe-note" id="recipe-note"></div>
-          <div class="gi-alert" id="gi-alert"></div>
+          <div id="recipe-rows"></div>                      <!-- ingredientes — JS -->
+          <div id="osmo-pill-wrap" style="margin-top:10px"></div> <!-- isotónica/etc — JS -->
+          <div class="recipe-note" id="recipe-note"></div>  <!-- nota sacarosa — JS -->
+          <div class="gi-alert" id="gi-alert"></div>        <!-- alerta GI — JS -->
         </div>
 
+        <!-- Timeline visual horizontal de tomas -->
         <div class="timeline-card">
           <div class="card-title"><i class="fa-solid fa-timeline"></i> Plan de hidratación</div>
+
           <div class="timeline-scroll">
-            <div style="position:relative;padding-bottom:4px">
-              <div class="tl-line" id="tl-line"></div>
-              <div class="tl-track" id="tl-track"></div>
+            <div style="position:relative; padding-bottom:4px">
+              <div class="tl-line" id="tl-line"></div>   <!-- línea conectora — posicionada por JS -->
+              <div class="tl-track" id="tl-track"></div> <!-- nodos — generados por JS -->
             </div>
           </div>
+
+          <!-- Leyenda de tipos de nodo -->
           <div class="tl-legend">
-            <div class="tl-legend-item"><div class="tl-legend-dot" style="border-color:var(--success);background:rgba(0,230,118,0.15)"></div>Inicio</div>
-            <div class="tl-legend-item"><div class="tl-legend-dot" style="border-color:var(--cyan);background:rgba(0,200,255,0.12)"></div>Toma de bebida</div>
-            <div class="tl-legend-item"><div class="tl-legend-dot" style="border-color:var(--danger);background:rgba(255,95,95,0.12)"></div>Fin</div>
+            <div class="tl-legend-item">
+              <div class="tl-legend-dot" style="border-color:var(--success);background:rgba(0,230,118,0.15)"></div>Inicio
+            </div>
+            <div class="tl-legend-item">
+              <div class="tl-legend-dot" style="border-color:var(--cyan);background:rgba(0,200,255,0.12)"></div>Toma de bebida
+            </div>
+            <div class="tl-legend-item">
+              <div class="tl-legend-dot" style="border-color:var(--danger);background:rgba(255,95,95,0.12)"></div>Fin
+            </div>
           </div>
+
+          <!-- Resumen de totales (L, g CHO, kcal) — JS -->
           <div style="font-size:11px;color:var(--text3);margin-top:8px" id="tl-totals"></div>
         </div>
-      </div>
 
+      </div>
+      <!-- /content-grid -->
+
+      <!-- Botones para abrir paneles informativos extra -->
       <div class="extra-row">
-        <button class="extra-btn" id="btn-refs" onclick="togglePanel('refs')"><i class="fa-solid fa-book-open"></i> Bibliografía científica</button>
-        <button class="extra-btn" id="btn-formulas" onclick="togglePanel('formulas')"><i class="fa-solid fa-square-root-variable"></i> Fórmulas aplicadas</button>
+        <button class="extra-btn" id="btn-refs" onclick="togglePanel('refs')">
+          <i class="fa-solid fa-book-open"></i> Bibliografía científica
+        </button>
+        <button class="extra-btn" id="btn-formulas" onclick="togglePanel('formulas')">
+          <i class="fa-solid fa-square-root-variable"></i> Fórmulas aplicadas
+        </button>
       </div>
 
+      <!-- Panel bibliografía (oculto por defecto) -->
       <div class="expand-panel" id="panel-refs">
-        <div class="card-title" style="margin-bottom:1rem"><i class="fa-solid fa-microscope"></i> Evidencia científica de referencia</div>
-        <div id="refs-content"></div>
+        <div class="card-title" style="margin-bottom:1rem">
+          <i class="fa-solid fa-microscope"></i> Evidencia científica de referencia
+        </div>
+        <div id="refs-content"></div> <!-- JS -->
       </div>
 
+      <!-- Panel fórmulas (oculto por defecto) -->
       <div class="expand-panel" id="panel-formulas">
-        <div class="card-title" style="margin-bottom:1rem"><i class="fa-solid fa-calculator"></i> Matemáticas de tu plan</div>
-        <div id="formulas-content"></div>
+        <div class="card-title" style="margin-bottom:1rem">
+          <i class="fa-solid fa-calculator"></i> Matemáticas de tu plan
+        </div>
+        <div id="formulas-content"></div> <!-- JS -->
       </div>
 
     </div>
-  </div>
-</div>
+    <!-- /results -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  </div>
+  <!-- /main -->
+
+</div>
+<!-- /app -->
+
+
+<!-- Chart.js disponible para futuros gráficos -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/4.4.1/chart.umd.js"></script>
+
+<!-- Lógica de la aplicación -->
 <script src="js/script.js"></script>
+
 </body>
 </html>
