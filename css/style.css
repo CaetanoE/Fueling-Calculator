@@ -164,7 +164,7 @@ body {
 .sidebar {
   background:  var(--surface);
   border-right: 1px solid var(--border);
-  padding:     1.25rem 1rem;
+  padding:     1rem; /* Reducido para ahorrar espacio vertical */
   overflow-y:  auto;
 }
 
@@ -175,7 +175,7 @@ body {
   color:          var(--cyan);
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom:  0.75rem;
+  margin-bottom:  0.5rem; /* Antes 0.75rem */
   display:        flex;
   align-items:    center;
   gap:            8px;
@@ -183,14 +183,14 @@ body {
 .sidebar-title i { font-size: 13px; }
 
 /* Campo de formulario genérico */
-.field { margin-bottom: 0.85rem; }
+.field { margin-bottom: 0.5rem; } /* Antes 0.85rem */
 
 .field label {
   display:        block;
   font-size:      11px;
   font-weight:    600;
   color:          var(--text2);
-  margin-bottom:  5px;
+  margin-bottom:  2px; /* Antes 5px */
   letter-spacing: 0.8px;
   text-transform: uppercase;
 }
@@ -201,7 +201,7 @@ body {
   background-color: var(--surface2);
   border:           1px solid var(--border);
   color:            var(--text);
-  padding:          9px 12px;
+  padding:          6px 10px; /* Antes 9px 12px */
   border-radius:    6px;
   font-family:      var(--font);
   font-size:        13px;
@@ -236,7 +236,7 @@ body {
 .divider {
   height:     1px;
   background: var(--border);
-  margin:     0.85rem 0;
+  margin:     0.5rem 0; /* Antes 0.85rem 0 */
 }
 
 /* Slider de temperatura */
@@ -285,7 +285,7 @@ input[type=range]::-webkit-slider-thumb {
   background:     linear-gradient(135deg, var(--cyan) 0%, var(--blue) 100%);
   color:          #000;
   border:         none;
-  padding:        11px;
+  padding:        9px; /* Antes 11px */
   border-radius:  8px;
   font-family:    var(--rajdhani);
   font-size:      15px;
@@ -294,7 +294,7 @@ input[type=range]::-webkit-slider-thumb {
   letter-spacing: 1px;
   text-transform: uppercase;
   transition:     opacity 0.15s, transform 0.1s;
-  margin-top:     0.5rem;
+  margin-top:     0.25rem; /* Antes 0.5rem */
 }
 .calc-btn:hover  { opacity: 0.92; transform: translateY(-1px); }
 .calc-btn:active { transform: translateY(0); }
