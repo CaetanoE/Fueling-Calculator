@@ -105,126 +105,110 @@ function calcular() {
 
   /* 5.1 — Lectura de inputs
      ─────────────────────── */
-  const peso      = parseFloat(document.getElementById('peso').value)     || 70;
-  const edad      = parseFloat(document.getElementById('edad').value)     || 30;
-  const sexo      = document.getElementById('sexo').value;
-  const nivel     = document.getElementById('nivel').value;
-  const deporte   = document.getElementById('deporte').value;
-  const duracion  = parseFloat(document.getElementById('duracion').value) || 90;
+  const peso       = parseFloat(document.getElementById('peso').value)     || 70;
+  const edad       = parseFloat(document.getElementById('edad').value)     || 30;
+  const sexo       = document.getElementById('sexo').value;
+  const nivel      = document.getElementById('nivel').value;
+  const deporte    = document.getElementById('deporte').value;
+  const duracion   = parseFloat(document.getElementById('duracion').value) || 90;
   const intensidad = document.getElementById('intensidad').value;
-  const temp      = parseFloat(document.getElementById('temp').value);
-  const humedad   = document.getElementById('humedad').value;
-  const altitud   = document.getElementById('altitud').value;
+  const temp       = parseFloat(document.getElementById('temp').value);
+  const humedad    = document.getElementById('humedad').value;
+  const altitud    = document.getElementById('altitud').value;
   const hidratPrev = document.getElementById('hidratPrev').value;
-  const tolGI     = document.getElementById('tolGI').value;
-  const objetivo  = document.getElementById('objetivo').value;
+  const tolGI      = document.getElementById('tolGI').value;
+  const objetivo   = document.getElementById('objetivo').value;
 
   const durH = duracion / 60; // duración en horas
 
   /* 5.2 — Tasa de sudoración estimada
-     Referencia: Sawka et al. (2007) ACSM Position Stand
-     Base 800 ml/h ajustada por sexo, intensidad, temperatura,
-     humedad, altitud y peso corporal.
+     Referencia: NATA Position Statement (Update 2025)
+     Cálculo basado en ml/kg/h según intensidad, con ajustes
+     por sexo, temperatura, humedad y altitud.
      ─────────────────────────────────────────────────────────── */
-  let sudorBase = 800; // ml/h base para hombre de 70kg a intensidad moderada
+  let tasaMlKg = 7; // Base moderada
+  if (intensidad === 'low') tasaMlKg = 5;
+  if (intensidad === 'high') tasaMlKg = 9;
+  if (intensidad === 'vhigh') tasaMlKg = 11;
 
-  // Las mujeres sudan ~15% menos en promedio
-  if (sexo === 'f') sudorBase *= 0.85;
+  let sudorBase = peso * tasaMlKg;
 
-  // Multiplicador por zona de intensidad
-  const intMult = { low: 0.6, mod: 1.0, high: 1.4, vhigh: 1.8 }[intensidad];
-  sudorBase *= intMult;
+  // Las mujeres sudan ~10-15% menos en promedio a igual intensidad
+  if (sexo === 'f') sudorBase *= 0.9;
 
-  // Corrección térmica: +100ml/h por cada 5°C por encima de 20°C
-  if (temp > 20) sudorBase += Math.round((temp - 20) / 5) * 100;
-  if (temp < 15) sudorBase -= 100;
+  // Corrección térmica: +/- ml por cada grado de desviación de los 20°C
+  if (temp > 20) sudorBase += (temp - 20) * 15;
+  if (temp < 15) sudorBase -= (15 - temp) * 10;
 
   // Humedad alta dificulta la evaporación → mayor acumulación de calor
   if (humedad === 'humedo') sudorBase *= 1.1;
 
   // Altitud → mayor tasa respiratoria → más pérdida de fluido
   if (altitud === 'medium') sudorBase *= 1.05;
-  if (altitud === 'high')   sudorBase *= 1.12;
+  if (altitud === 'high')   sudorBase *= 1.10;
 
-  // Escala lineal por peso (referencia normalizada a 70kg)
-  sudorBase = sudorBase * (peso / 70);
   sudorBase = Math.round(sudorBase);
 
   /* 5.3 — Fluidos recomendados por hora
-     Referencia: Sawka 2007, Burke 2011
-     Nunca superar 1200 ml/h en esfuerzos largos (riesgo hiponatremia)
+     Referencia: ACSM y NATA
+     Mantener la variación del peso corporal entre +1% y -1%.
      ─────────────────────────────────────────────────────────── */
   let aguaRec = sudorBase;
 
-  // Evitar sobreingestión en eventos muy largos
-  if (duracion > 180 && aguaRec > 1200) aguaRec = 1200;
+  // Ajustes de seguridad fisiológica
+  if (aguaRec > 1000) aguaRec = 1000; // Tope máximo de vaciado gástrico
+  if (aguaRec < 200) aguaRec = 200;   // Mínimo vital en ejercicio
 
-  // Ajustes por objetivo y estado previo
-  if (objetivo === 'weight')       aguaRec = Math.round(aguaRec * 0.9);
-  if (hidratPrev === 'poor')       aguaRec = Math.min(aguaRec * 1.15, 1400);
+  // Ajustes por estado previo
+  if (hidratPrev === 'poor') aguaRec = Math.min(aguaRec * 1.15, 1000);
 
-  aguaRec = Math.round(aguaRec / 10) * 10; // redondeamos a decenas
+  aguaRec = Math.round(aguaRec / 10) * 10; // Redondeo a decenas
 
   /* 5.4 — Carbohidratos recomendados por hora
-     Referencia: Jeukendrup (2004, 2014)
-     - <45 min: no son necesarios
-     - 45-75 min: pequeñas cantidades (enjuague bucal ya ayuda)
-     - >150 min: hasta 90g/h con mezcla glucosa+fructosa
+     Referencia: Jeukendrup (2014), Viribay et al. (2020/2024)
+     - <60 min: 0g (Foco en post-entrenamiento)
+     - 60-90 min: 30g (Solo si hay intensidad)
+     - 90-150 min: 30-45g
+     - >150 min: 60-80g (Protección contra daño muscular EIMD)
      ─────────────────────────────────────────────────────────── */
   let carbsRec = 0;
 
-  if      (duracion >= 45  && duracion < 75)  carbsRec = 20;
-  else if (duracion >= 75  && duracion < 120) carbsRec = 40;
-  else if (duracion >= 120 && duracion < 150) carbsRec = 55;
-  else if (duracion >= 150) carbsRec = durH >= 2.5 ? 70 : 60;
+  if (duracion < 60) {
+    carbsRec = 0; 
+  } else if (duracion >= 60 && duracion < 90) {
+    carbsRec = (intensidad === 'low') ? 0 : 30;
+  } else if (duracion >= 90 && duracion <= 150) {
+    carbsRec = (intensidad === 'low') ? 30 : 45;
+  } else {
+    // Ultra resistencia (>2.5h)
+    carbsRec = 60;
+    if (nivel === 'elite' || tolGI === 'high') carbsRec = 80;
+  }
 
-  // Intensidad alta aumenta la oxidación de CHO
-  if (intensidad === 'high')  carbsRec = Math.min(carbsRec + 10, 90);
-  if (intensidad === 'vhigh') carbsRec = Math.min(carbsRec + 20, 90);
+  // Tope estricto por sensibilidad gastrointestinal
+  if (tolGI === 'low' && carbsRec > 40) carbsRec = 40;
 
-  // Los atletas élite tienen mayor capacidad de absorción intestinal
-  if (nivel === 'elite') carbsRec = Math.min(carbsRec + 5, 90);
-
-  // Límites por tolerancia gastrointestinal
-  if (tolGI === 'low') carbsRec = Math.min(carbsRec, 40);
-  if (tolGI === 'med') carbsRec = Math.min(carbsRec, 65);
-
-  // Ajustes por objetivo
-  if (objetivo === 'weight') carbsRec = Math.round(carbsRec * 0.6);
-  if (objetivo === 'health') carbsRec = Math.round(carbsRec * 0.8);
-
-  // Gimnasio: esfuerzo intermitente, menor necesidad de CHO continuos
-  if (deporte === 'gym') carbsRec = Math.min(carbsRec, 50);
+  // Ajuste por deporte intermitente (Gimnasio)
+  if (deporte === 'gym') carbsRec = Math.min(carbsRec, 30);
 
   carbsRec = Math.round(carbsRec);
 
   /* 5.5 — Sodio recomendado por hora
-     Referencia: Maughan & Shirreffs (2010), Stofan et al. (2005)
-     La concentración de Na⁺ en el sudor varía: 20-80 mmol/L
-     Media ~35-50 mmol/L → 800-1150 mg/L en condiciones normales
+     Referencia: ACSM / Sawka et al.
+     Ligado proporcionalmente al volumen de agua ingerido para
+     evitar hiponatremia (concentración isotónica ideal).
      ─────────────────────────────────────────────────────────── */
-  let sodioRec = 600; // mg/h base
-
-  // Calor aumenta la pérdida de electrolitos
-  if (temp > 25) sodioRec += 100;
-  if (temp > 35) sodioRec += 150;
-
-  // Alta intensidad → más sudor → más sodio perdido
-  if (intensidad === 'high' || intensidad === 'vhigh') sodioRec += 100;
-
-  // Esfuerzos largos acumulan mayor pérdida total
-  if (duracion > 120) sodioRec += 100;
-
-  // Hombres pesados tienden a ser sudadores más intensos
-  if (sexo === 'm' && peso > 80) sodioRec += 100;
-
-  // A altitud el sudor es algo menos concentrado en Na
-  if (altitud === 'high') sodioRec -= 50;
-
-  sodioRec = Math.round(sodioRec / 50) * 50; // redondeamos a 50mg
+  let concentracionNa = 700; // mg de Sodio por Litro de agua (isotónico base)
+  
+  // Calor o humedad extrema = sudor más concentrado en minerales
+  if (temp >= 28 || humedad === 'humedo') concentracionNa = 900; 
+  
+  // Cálculo final de sodio basado en lo que realmente va a beber
+  let sodioRec = (aguaRec / 1000) * concentracionNa;
+  sodioRec = Math.round(sodioRec / 10) * 10; // Redondeo a decenas
 
   /* 5.6 — Concentraciones por botella de 500ml
-     (para la receta práctica)
+     (Para la receta práctica)
      ─────────────────────────────────────────────────────────── */
   const carbsPerml  = aguaRec > 0 ? carbsRec / aguaRec : 0;
   const carbsPor500 = Math.round(carbsPerml * 500 * 10) / 10;       // g CHO por 500ml
@@ -428,46 +412,39 @@ function calcular() {
   const refs = [
     {
       id: '[1]',
-      autor: 'Jeukendrup, A.E. (2004)',
-      titulo: 'Carbohydrate intake during exercise and performance',
-      hallazgo: '60g/h de glucosa = absorción máxima del transportador SGLT1. Mezcla glucosa+fructosa (ratio 2:1) permite hasta 90g/h al activar GLUT5.',
-      journal: 'Nutrition'
-    },
-    {
-      id: '[2]',
-      autor: 'Sawka et al. (2007)',
-      titulo: 'ACSM Position Stand: Exercise and Fluid Replacement',
-      hallazgo: 'Tasa de sudoración 0.5-2.0 L/h según intensidad y temperatura. Déficit >2% del peso corporal deteriora el rendimiento aeróbico.',
-      journal: 'Med Sci Sports Exerc'
-    },
-    {
-      id: '[3]',
-      autor: 'Maughan & Shirreffs (2010)',
-      titulo: 'Dehydration and rehydration in competitive sport',
-      hallazgo: 'Concentración de Na⁺ en sudor: 20-80 mmol/L (media 35-50). Soluciones con 400-700mg Na/L optimizan la absorción intestinal.',
-      journal: 'Scand J Med Sci Sports'
-    },
-    {
-      id: '[4]',
-      autor: 'Stofan et al. (2005)',
-      titulo: 'Sweat and sodium losses in NCAA football players',
-      hallazgo: 'Atletas con alta tasa de sudoración pierden hasta 1750mg Na/h. La sal en la bebida es esencial para prevenir hiponatremia.',
-      journal: 'Int J Sport Nutr Exerc Metab'
-    },
-    {
-      id: '[5]',
       autor: 'Jeukendrup, A.E. (2014)',
-      titulo: 'A step towards personalized sports nutrition: carbohydrate intake during exercise',
-      hallazgo: 'Soluciones isotónicas (270-330 mOsm/kg) se vacían del estómago más rápido. Sacarosa (azúcar de mesa) = fuente ideal glucosa+fructosa 1:1.',
+      titulo: 'A step towards personalized sports nutrition',
+      hallazgo: 'Las soluciones de carbohidratos de múltiples transportadores (sacarosa = glucosa+fructosa) permiten altas tasas de absorción. En esfuerzos de ~1h, pequeños sorbos o enjuagues bucales mejoran el rendimiento en alta intensidad.',
       journal: 'Sports Medicine'
     },
     {
-      id: '[6]',
-      autor: 'Burke et al. (2011)',
-      titulo: 'Carbohydrates for training and competition',
-      hallazgo: 'El entrenamiento intestinal (gut training) incrementa la tolerancia a CHO hasta 90g/h. Recomendado empezar con dosis bajas e incrementar.',
-      journal: 'J Sports Sci'
+      id: '[2]',
+      autor: 'Viribay et al. (2020/2024)',
+      titulo: 'Effects of 120 g/h of Carbohydrates Intake during a Mountain Marathon',
+      hallazgo: 'La ingesta de 120 g/h en atletas de ultra-resistencia no solo mejora el rendimiento, sino que limita significativamente el daño muscular inducido por el ejercicio (EIMD) comparado con 60 o 90 g/h.',
+      journal: 'Nutrients / PMC'
     },
+    {
+      id: '[3]',
+      autor: 'NATA Position Statement (Update 2025)',
+      titulo: 'Fluid Replacement for the Physically Active',
+      hallazgo: 'Mantener el peso corporal con una variación mínima (+1% a -1%) previene el aumento de la temperatura central. El reemplazo de fluidos debe ser totalmente individualizado según la tasa de sudoración.',
+      journal: 'Journal of Athletic Training'
+    },
+    {
+      id: '[4]',
+      autor: 'ISSN (Review Update)',
+      titulo: 'Exercise & Sport Nutrition Review',
+      hallazgo: 'La personalización de la nutrición debe considerar la tolerancia gastrointestinal. Entrenar el intestino (Gut Training) es imperativo para tolerar cargas altas de carbohidratos en intensidad sin molestias.',
+      journal: 'JISSN'
+    },
+    {
+      id: '[5]',
+      autor: 'ACSM / Sawka et al.',
+      titulo: 'Exercise and Fluid Replacement',
+      hallazgo: 'La concentración de sodio en el sudor es altamente variable. Las bebidas isotónicas con sales previenen eficazmente la hiponatremia en esfuerzos prolongados.',
+      journal: 'Med Sci Sports Exerc'
+    }
   ];
 
   document.getElementById('refs-content').innerHTML = refs.map(r =>
@@ -476,8 +453,7 @@ function calcular() {
       <div class="ref-finding">${r.hallazgo}</div>
     </div>`
   ).join('');
-
-
+  
   /* ───────────────────────────────────────────────────────────
      9. FÓRMULAS APLICADAS (panel expandible)
      Muestra los valores concretos usados en el cálculo del usuario
