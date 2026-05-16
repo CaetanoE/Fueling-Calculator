@@ -307,16 +307,24 @@ function calcular() {
   else                     osmoPill = `<span class="osmo-pill osmo-hyper">Hipertónica · ${osmReal} mOsm/kg</span>`;
   document.getElementById('osmo-pill-wrap').innerHTML = osmoPill;
 
-  // Nota explicativa según osmolalidad
+// Nota explicativa según osmolalidad
   let isoNote = '';
   if      (osmReal < 270) isoNote = 'Absorción de agua muy rápida. Ideal para calor extremo.';
   else if (osmReal <= 330) isoNote = 'Equilibrio óptimo absorción agua/energía. Vaciado gástrico rápido.';
   else                     isoNote = 'Mayor densidad energética. Puede ralentizar absorción hídrica.';
 
-  document.getElementById('recipe-note').innerHTML =
-    `<strong>Azúcar de mesa = sacarosa</strong> (50% glucosa + 50% fructosa). Activa transportadores SGLT1 y GLUT5 de forma independiente, maximizando la absorción.<br><br>
-     <span style="color:var(--text2)">${isoNote}</span>`;
+  const recipeNoteEl = document.getElementById('recipe-note');
+  if (carbsRec > 0) {
+    recipeNoteEl.style.display = 'block';
+    recipeNoteEl.innerHTML =
+      `<strong>Azúcar de mesa = sacarosa</strong> (50% glucosa + 50% fructosa). Activa transportadores SGLT1 y GLUT5 de forma independiente, maximizando la absorción.<br><br>
+       <span style="color:var(--text2)">${isoNote}</span>`;
+  } else {
+    // Si no hay azúcar, ocultamos la nota de la sacarosa
+    recipeNoteEl.style.display = 'none';
+  }
 
+  
   /* 6.6 — Alerta GI */
   const giAlert = document.getElementById('gi-alert');
   if (tolGI === 'low') {
