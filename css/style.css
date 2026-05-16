@@ -85,7 +85,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 .kpi-card.warn .kpi-card-val{color:var(--warn)}
 .kpi-card.danger .kpi-card-val{color:var(--danger)}
 .kpi-card-unit{font-size:11px;color:var(--text2);display:inline}
-.kpi-card-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:6px}
+.kpi-card-label{font-size:11px;color:var(--cyan);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:6px}
+.kpi-card.warn .kpi-card-label{color:var(--warn)}
+.kpi-card.danger .kpi-card-label{color:var(--danger)}
 .kpi-card-sub{font-size:10px;color:var(--text3);margin-top:3px}
 
 /* MAIN GRID (recipe + timeline) */
