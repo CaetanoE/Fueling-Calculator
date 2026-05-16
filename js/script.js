@@ -22,6 +22,13 @@ document.getElementById('temp').addEventListener('input', function () {
  * Abre o cierra el sidebar en móvil.
  * El botón flotante (hamburger) lo llama desde el HTML.
  */
+
+// Abre el sidebar automáticamente si estamos en móvil al cargar la página
+if (window.innerWidth <= 640) {
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('overlay').classList.add('visible');
+}
+
 function toggleSidebar() {
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('overlay');

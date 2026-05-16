@@ -771,7 +771,7 @@ input[type=range]::-webkit-slider-thumb {
   .nav-badge { display: none; }
 
   /* Muestra el botón hamburger */
-  .hamburger { display: flex; }
+  .hamburger { display: flex; }  
 
   /* ── Sidebar: fuera de la pantalla por defecto, entra deslizando ── */
   .sidebar {
