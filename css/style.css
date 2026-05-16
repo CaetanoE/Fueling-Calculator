@@ -648,6 +648,18 @@ input[type=range]::-webkit-slider-thumb {
   display:       none;
 }
 
+/*Para los casos de entrenamientos cortos y poco exigentes no es necesario consumo en el entreno */
+.info-alert {
+  background:    rgba(0, 200, 255, 0.07);
+  border:        1px solid rgba(0, 200, 255, 0.25);
+  color:         var(--cyan);
+  padding:       10px 14px;
+  border-radius: 8px;
+  font-size:     12px;
+  margin-top:    1rem;
+  line-height:   1.5;
+  display:       none; /* JS la muestra cuando aplica */
+}
 
 /* ─────────────────────────────────────────────────────────────
    11. BOTONES Y PANELES EXPANDIBLES

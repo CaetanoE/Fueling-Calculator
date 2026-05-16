@@ -326,6 +326,15 @@ function calcular() {
     giAlert.style.display = 'none';
   }
 
+  /* 6.7 — Alerta 0g Carbohidratos */
+  const zeroCarbsAlert = document.getElementById('zero-carbs-alert');
+  if (carbsRec === 0) {
+    zeroCarbsAlert.style.display = 'block';
+    zeroCarbsAlert.innerHTML = '<i class="fa-solid fa-utensils" style="margin-right:6px"></i> Para esta sesión no necesitas azúcar durante la prueba; tu objetivo principal debe ser la comida de recuperación post-entrenamiento.';
+  } else {
+    zeroCarbsAlert.style.display = 'none';
+  }
+
   /* ───────────────────────────────────────────────────────────
      7. TIMELINE VISUAL HORIZONTAL
      Genera un nodo por cada toma de bebida a lo largo del tiempo.
@@ -453,7 +462,7 @@ function calcular() {
       <div class="ref-finding">${r.hallazgo}</div>
     </div>`
   ).join('');
-  
+
   /* ───────────────────────────────────────────────────────────
      9. FÓRMULAS APLICADAS (panel expandible)
      Muestra los valores concretos usados en el cálculo del usuario
